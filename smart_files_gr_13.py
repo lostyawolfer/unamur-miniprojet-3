@@ -1,6 +1,4 @@
 import os
-import pickle
-#from pathlib import Path
 
 def word_frequency(string: str) -> dict[str, int]:
     """
