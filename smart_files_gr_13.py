@@ -1,14 +1,22 @@
 import os
-# TODO: fix docs
+
 
 def word_frequency(string: str) -> dict[str, int]:
+    """Counts the amount of each word in a string.
+
+    Parameters
+    ----------
+    string : the string to count words in (str)
+
+    Returns
+    -------
+    a dictionary with the structure of {'word': count}
     """
-    Counts the amount of each word in a string.
-    :param string: the string to count words in.
-    :return: a dictionary with the structure of {'word': count}
-    """
-    characters_to_clear = '.,:;?!@#$%^&*-+/~`=_'
-    clean_string = string.strip(characters_to_clear)
+    characters_to_clear = '\'".,:;?!@#$%^&*-+/~`=_'
+    clean_string = string.lower()
+    for char in characters_to_clear:
+        clean_string = clean_string.replace(char, ' ')
+    clean_string = clean_string.strip()
     words = clean_string.split()
     ret = {}
     for word in words:
@@ -16,14 +24,20 @@ def word_frequency(string: str) -> dict[str, int]:
     return ret
 
 def move_file(fname: str, category: str, dir: str = 'archive') -> None:
-    """
-    Moves a file from the unsorted directory to the sorted directory into the specified category.
-    :param fname: the file to move from the unsorted folder
-    :param category: the category name to move the file to
-    :param dir: the working directory of sorting, 'archive' by default
-    :raises ValueError: if ``dir`` does not exist in ``.``
-    :raises ValueError: if ``fname`` does not exist in ``./archive/unsorted``
-    :return:
+    """Moves a file from the unsorted directory to the sorted directory into the specified category.
+
+    Parameters
+    ----------
+    fname : the file to move from the unsorted folder (str)
+    category : the category name to move the file to (str)
+    dir : the working directory of sorting, 'archive' by default (str)
+
+    Raises
+    ------
+    ValueError
+        if ``dir`` does not exist in ``.``
+    ValueError
+        if ``fname`` does not exist in ``./archive/unsorted``
     """
     path_to_file = f'./{dir}/unsorted/{fname}'
     path_to_category = f'./{dir}/sorted/{category}'
@@ -37,12 +51,17 @@ def move_file(fname: str, category: str, dir: str = 'archive') -> None:
     os.rename(path_to_file, path_to_new_file)
 
 def move_all(info: dict[str, str], dir: str = 'archive') -> None:
-    """
-    Moves all files from ./archive/unsorted into ./archive/sorted by using info in ``info`` dict.
-    :param info: the dictionary to be used as a reference for sorting. 'file_name': 'category_name'
-    :param dir: the working directory of sorting, 'archive' by default
-    :raises ValueError: if ``dir`` does not exist in ``.``
-    :return:
+    """Moves all files from ./archive/unsorted into ./archive/sorted by using info in ``info`` dict.
+
+    Parameters
+    ----------
+    info : the dictionary to be used as a reference for sorting. 'file_name': 'category_name' (dict[str, str])
+    dir : the working directory of sorting, 'archive' by default (str)
+
+    Raises
+    ------
+    ValueError
+        if ``dir`` does not exist in ``.``
     """
     if not os.path.exists(f'./{dir}'):
         raise ValueError('Working directory does not exist.')
@@ -51,21 +70,34 @@ def move_all(info: dict[str, str], dir: str = 'archive') -> None:
 
 
 def smart_sort_files(path: str) -> None:
-    """
-    Sorts all files by categories into different folders from ./(path)/unsorted/ into ./(path)/sorted
-    :param path: the working directory of the sorting.
-    :raises ValueError: if ``path`` does not exist in ``.``.
-    :return:
+    """Sorts all files by categories into different folders from ./(path)/unsorted/ into ./(path)/sorted.
+
+    Parameters
+    ----------
+    path : the working directory of the sorting (str)
+
+    Raises
+    ------
+    ValueError
+        if ``path`` does not exist in ``.``.
     """
     ...
 
 def check_accuracy(path: str) -> None:
-    """
-    Checks accuracy of an already performed sorting in ./(path)/sorted by using ./(path)/labels.txt as a reference.
-    :param path: the working directory of previously performed sorting.
-    :raises ValueError: if ``path`` does not exist in ``.``.
-    :return:
+    """Checks accuracy of an already performed sorting in ./(path)/sorted by using ./(path)/labels.txt as a reference.
+
+    Parameters
+    ----------
+    path : the working directory of previously performed sorting (str)
+
+    Raises
+    ------
+    ValueError
+        if ``path`` does not exist in ``.``.
     """
     ...
 
-move_file('test.txt', 'test')
+
+test_string = "Hello, my name Hello"
+
+print(word_frequency(test_string))
