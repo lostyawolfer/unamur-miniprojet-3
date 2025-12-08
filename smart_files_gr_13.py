@@ -1,6 +1,26 @@
 import os
 
 
+def clean_text(string:str):
+    """
+    Receives a text/string, changes all upper-case into lower_case letters, removes all punctuations and returns  the resulting string
+    
+    Parameters
+    ----------
+    string: string to be cleanes(str)
+    
+    Returns
+    -------
+    Result: clean_Up string
+    """
+    signs=["(",")","{","}","'",",","[","]","/","'",".",":",";","?","!","@","#","$","%","^","&","*","-","+","/","~","`","=","_"]
+    string = string.lower()
+    for sign in signs:
+        string = string.replace(sign," ")
+        string=string.replace("  "," ")
+    string = string.strip()      
+    return string
+
 def word_frequency(string: str) -> dict[str, int]:
     """Counts the amount of each word in a string.
 
@@ -12,11 +32,7 @@ def word_frequency(string: str) -> dict[str, int]:
     -------
     a dictionary with the structure of {'word': count}
     """
-    characters_to_clear = '\'".,:;?!@#$%^&*-+/~`=_'
-    clean_string = string.lower()
-    for char in characters_to_clear:
-        clean_string = clean_string.replace(char, ' ')
-    clean_string = clean_string.strip()
+    clean_string = clean_text(string)
     words = clean_string.split()
     ret = {}
     for word in words:
